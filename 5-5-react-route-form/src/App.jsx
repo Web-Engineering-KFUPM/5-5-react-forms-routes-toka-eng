@@ -145,22 +145,52 @@
 // ================================================================
 
 
+import { NavLink, Route, Routes } from "react-router-dom";
+import Home from "./pages/Home.jsx";
+import About from "./pages/About.jsx";
+import Registration from "./pages/Registration.jsx";
+
 export default function App() {
+  const linkClass = ({ isActive }) => `navlink${isActive ? " active" : ""}`;
+
   return (
     <div className="app">
-      <nav className="navbar">
-        <div className="brand">🧑‍💻 Student Portal</div>
-        <div className="links">
-          {/*Nav links*/}
-        </div>
-      </nav>
+      <header className="navbar">
+        <div className="brand">Student Portal</div>
+
+        <nav className="links">
+          <NavLink to="/" end className={linkClass}>
+            Home
+          </NavLink>
+          <NavLink to="/about" className={linkClass}>
+            About
+          </NavLink>
+          <NavLink to="/registration" className={linkClass}>
+            Registration
+          </NavLink>
+        </nav>
+      </header>
 
       <main className="container">
-        {/*Routes*/}
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/registration" element={<Registration />} />
+
+          <Route
+            path="*"
+            element={
+              <section className="card neon">
+                <h1>404 — Not Found</h1>
+                <p className="muted">This page doesn’t exist.</p>
+              </section>
+            }
+          />
+        </Routes>
       </main>
 
       <footer className="footer">
-        <span>© {new Date().getFullYear()} React Student Portal</span>
+        © {new Date().getFullYear()} React Student Portal
       </footer>
     </div>
   );
